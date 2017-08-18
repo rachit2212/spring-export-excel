@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form action="./getExcel" method="post">
-		CompanyId: <input type="number" name="companyId" /><br />
+		CompanyId: <input type="text" name="companyId" /><br />
 		<!-- Mock response: <input type="text" name="mockResponse" /><br /> -->
 		<button type="submit">Generate Excel file</button>
 	</form>
