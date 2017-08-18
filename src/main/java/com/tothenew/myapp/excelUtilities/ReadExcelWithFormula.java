@@ -38,7 +38,7 @@ public class ReadExcelWithFormula {
 	public static String apiUrl = "http://localhost:2891/articles?start_date=2015-01-01&end_date=2015-10-25&ISINs=COMPANYIDTOREPLACE&article_cap=10000";
 	private static final String excelFilePath = "input_pulse.xls";
 	
-	public static void createExcel(boolean mockResponse, String companyId) {
+	public static boolean createExcel(boolean mockResponse, String companyId) {
 		int currentRow = 12;
 	    FileInputStream inp = null;
 	    FileOutputStream output_file = null;
@@ -46,6 +46,7 @@ public class ReadExcelWithFormula {
 	    
 	    urlString = urlString.replace("COMPANYIDTOREPLACE", companyId);
 	    apiUrl = apiUrl.replace("COMPANYIDTOREPLACE", companyId);
+	    boolean isSuccess = true;
 	    
 	    try {      
 	    	ClassLoader classLoader = ReadExcelWithFormula.class.getClassLoader();
@@ -72,9 +73,11 @@ public class ReadExcelWithFormula {
 	    	//close the stream
 	    	output_file.close();
 	    	
-	    } catch (IOException ex) {
+	    } catch (Exception ex) {
 	    	ex.printStackTrace();
+	    	isSuccess = false;
 	    }
+	    return isSuccess;
 	}
 	
 
@@ -190,8 +193,7 @@ public class ReadExcelWithFormula {
 		//for tvl2Cats values
     	 JSONObject newValuesTvl2Cats = (JSONObject)jsonObject.get("tvl2Cats");
     	 if (newValuesTvl2Cats!=null) {
-			try {
-				for (int i = 0; i < tvl2CatsKeys.size(); i++) {
+    		 for (int i = 0; i < tvl2CatsKeys.size(); i++) {
 					Double modelValue = null;
 					String key = (String) tvl2CatsKeys.get(i);
 					Object keyValue = newValuesTvl2Cats.get(key);
@@ -208,9 +210,6 @@ public class ReadExcelWithFormula {
 					setcellValue(sheet, currentRow, cellNumber - 2, modelValue);
 
 				}
-			} catch (Exception npe) {
-				npe.printStackTrace();
-			} 
 		}    	 
 	}
 	

@@ -34,8 +34,9 @@ public class ExcelController {
 	
 	@RequestMapping(value="/getExcel", method=RequestMethod.POST)
 	public ModelAndView evaluateExcelSheet(@ModelAttribute("SpringWeb")CompanyModel model) {
-		ReadExcelWithFormula.createExcel(Boolean.parseBoolean(env.getProperty("mockResponse")), model.getCompanyId());
+		boolean isSuccess = ReadExcelWithFormula.createExcel(Boolean.parseBoolean(env.getProperty("mockResponse")), model.getCompanyId());
 		ModelAndView excelExportView = new ModelAndView("excelExport");
+		excelExportView.addObject("isSuccess", isSuccess);
 	    return excelExportView;
 	}
 	

@@ -4,10 +4,10 @@
 </head>
 <body>
 <h3>
-	Excel generated Successfully!  
+	${ isSuccess ? "Excel generated Successfully!" : "Error generating excel" }
 </h3>
 <br>
 
-<a href="./exportExcel">Click here to download</a>
+<a href="./exportExcel">${ isSuccess ? "Click here to download" : "" }</a>
 </body>
 </html>
